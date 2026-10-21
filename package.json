@@ -1,0 +1,81 @@
+{
+  "name": "image-grabber",
+  "version": "1.0.0",
+  "description": "Baixe todas as imagens de qualquer página da web — incluindo Instagram",
+  "main": "main.js",
+  "author": "Image Grabber",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "node server.js",
+    "build": "electron-builder --win",
+    "build:portable": "electron-builder --win portable",
+    "build:installer": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jszip": "^3.10.1",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.2.0",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "sharp": "^0.35.3"
+  },
+  "build": {
+    "appId": "com.imagegrabber.app",
+    "productName": "Image Grabber",
+    "copyright": "Copyright © 2024 Image Grabber",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "server.js",
+      "public/**/*",
+      "node_modules/**/*",
+      "icon.ico",
+      "icon.jpg",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.ico",
+      "sign": null,
+      "forceCodeSigning": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Image Grabber",
+      "installerLanguages": [
+        "pt_BR",
+        "en_US"
+      ],
+      "language": "1046"
+    },
+    "portable": {
+      "artifactName": "ImageGrabber-Portable-${version}.${ext}"
+    }
+  }
+}
